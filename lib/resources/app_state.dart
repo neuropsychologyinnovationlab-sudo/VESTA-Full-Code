@@ -215,10 +215,21 @@ class AppState with ChangeNotifier {
 
   void calculateEventProgress() {
     _eventProgress = [0, 0];
-    int eventsTotal = -2;
+    int eventsTotal = 0;
     for (var element in sessionRoom!.distinctSlots) {
-      eventsTotal += element.setting.delayEvent.length;
-      eventsTotal += element.setting.doubleAfterEvent.length;
+      final setting = element.setting;
+      eventsTotal += setting.delayEvent.length;
+
+      final doubleAfterEventsAreReachable = !setting.scamStore &&
+          !setting.scamStoreDuplicate &&
+          !setting.wrongSlotItem &&
+          setting.randomItem == null &&
+          setting.falseCharge == null &&
+          setting.overchargeRate == 0 &&
+          !setting.doubleCharge;
+      if (doubleAfterEventsAreReachable) {
+        eventsTotal += setting.doubleAfterEvent.length;
+      }
     }
     int eventsDone = deployedEvents
         .where((element) => element.session == session)
