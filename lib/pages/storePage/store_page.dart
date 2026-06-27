@@ -348,21 +348,16 @@ class _StorePageState extends State<StorePage> {
               ),
             ),
             const SizedBox(height: 20),
-            SizedBox(
-              height: MediaQuery.of(context).size.height / 1.6,
-              width: MediaQuery.of(context).size.width - 15,
+            Expanded(
               child: GridView.builder(
-                shrinkWrap: true,
-                physics: const NeverScrollableScrollPhysics(),
+                padding: const EdgeInsets.fromLTRB(7.5, 0, 7.5, 32),
                 itemCount: sellables.length,
                 gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: isWeb ? 3 : 2,
-                    crossAxisSpacing: isWeb ? 8 : 5,
-                    mainAxisSpacing: isWeb ? 8: 5,
-                    childAspectRatio: isWeb
-                        ? screenWidth / screenWidth
-                        : MediaQuery.of(context).size.width /
-                            (MediaQuery.of(context).size.height / 2)),
+                  crossAxisCount: isWeb ? 3 : 2,
+                  crossAxisSpacing: isWeb ? 8 : 5,
+                  mainAxisSpacing: isWeb ? 8 : 5,
+                  mainAxisExtent: isWeb ? 300 : 260,
+                ),
                 itemBuilder: (BuildContext context, int index) {
                   StoreItem item = sellables[index];
                   String? direction =
@@ -478,15 +473,18 @@ class _StorePageState extends State<StorePage> {
                           children: [
                             const SizedBox(height: 3),
                             SizedBox(
-                              height: 48,
+                              height: 96,
                               child: Center(
                                 child: Text(
                                   item.name,
                                   textAlign: TextAlign.center,
-                                  maxLines: 2,
+                                  maxLines: 4,
+                                  overflow: TextOverflow.ellipsis,
                                   style: const TextStyle(
-                                      fontSize: 20,
-                                      fontWeight: FontWeight.bold),
+                                    fontSize: 20,
+                                    height: 1.1,
+                                    fontWeight: FontWeight.bold,
+                                  ),
                                 ),
                               ),
                             ),

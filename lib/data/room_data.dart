@@ -243,7 +243,7 @@ Room bedroom = Room(
       ],
       setting: const SlotSetting(
         overchargeRate: .25,
-        delayEvent: [],
+        delayEvent: [1000],
       ),
     ),
     // //Bd3 center (done)
@@ -347,7 +347,7 @@ Room bedroom = Room(
       ],
       setting: const SlotSetting(
         delayEvent: [1023],
-        doubleAfterEvent: [2000],
+        doubleAfterEvent: [],
         randomItem: StoreItem(
           name: 'Automated DVD and Blue Ray Disk Organizer',
           price: 299.95,
