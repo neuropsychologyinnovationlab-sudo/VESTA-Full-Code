@@ -189,6 +189,7 @@ class _RoomState extends State<Room> {
   List<PlaceableItem> prepareItems(List<PlaceableItem> roomItems) {
     List<PlaceableItem> placeables = [];
     bool shouldShowSlots = false;
+    int? nextUnfilledOrder;
 
     // Determine if slots should be shown
     if (roomItems.isEmpty) {
@@ -197,6 +198,13 @@ class _RoomState extends State<Room> {
       // Remove 'delivered' reference since PlaceableItem has no such getter
       shouldShowSlots = !locator.get<AppState>().waitingTransactionAction() &&
           !locator.get<AppState>().waitingEventAction();
+    }
+
+    for (final slot in widget.distinctSlots) {
+      if (slot.item == null &&
+          (nextUnfilledOrder == null || slot.order < nextUnfilledOrder)) {
+        nextUnfilledOrder = slot.order;
+      }
     }
 
     for (final PlaceableItem o in widget.items) {
@@ -211,8 +219,8 @@ class _RoomState extends State<Room> {
 
           placeables.add(matchedItem);
         } else if (_currentRoom != null && shouldShowSlots) {
-          // Add slot if order is 0 or previous slot is filled
-          if (o.order == 0 || widget.filledSlots(o.order - 1).isNotEmpty) {
+          // Show every visual slot belonging to the next unfilled order.
+          if (o.order == nextUnfilledOrder) {
             placeables.add(o);
           }
         }
@@ -417,17 +425,18 @@ class _RoomState extends State<Room> {
                       ),
                     ),
                   ),
-                  for (PlaceableItem item in furnitureAndSlots)
-                    item is Slot
-                        ? SlotCard(
-                            slot: item,
-                            roomName: widget.name,
-                          )
-                        : item is Furniture
-                            ? FurnitureCard(
-                                furniture: item,
-                              )
-                            : Container(),
+                  for (final furniture
+                      in furnitureAndSlots.whereType<Furniture>())
+                    FurnitureCard(
+                      furniture: furniture,
+                    ),
+                  // Keep the next purchase target visible and tappable above
+                  // already placed furniture, including large floor items.
+                  for (final slot in furnitureAndSlots.whereType<Slot>())
+                    SlotCard(
+                      slot: slot,
+                      roomName: widget.name,
+                    ),
                 ],
               );
             },

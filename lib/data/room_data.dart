@@ -2186,30 +2186,35 @@ Room diningroom = Room(
           left: 120,
           right: 130,
           height: 60,
+          layer: Layer.middle,
         ),
         Furniture(
           name: 'dining_table_rustic',
           left: 120,
           right: 130,
           height: 60,
+          layer: Layer.middle,
         ),
         Furniture(
           name: 'dining_table_mahogany',
           left: 120,
           right: 130,
           height: 60,
+          layer: Layer.middle,
         ),
         Furniture(
           name: 'foldable_table',
           left: 120,
           right: 130,
           height: 60,
+          layer: Layer.middle,
         ),
         Furniture(
           name: 'modern_dining_table',
           left: 120,
           right: 130,
           height: 60,
+          layer: Layer.middle,
         ),
       ],
       left: 120,
@@ -2233,6 +2238,7 @@ Room diningroom = Room(
           height: 35,
           left: 160,
           right: 140,
+          layer: Layer.front,
         ),
         Furniture(
           name: 'dining_chair_pine',
@@ -2240,6 +2246,7 @@ Room diningroom = Room(
           direction: Direction.se,
           left: 160,
           right: 140,
+          layer: Layer.front,
         ),
         Furniture(
           name: 'dining_chair_rustic',
@@ -2247,6 +2254,7 @@ Room diningroom = Room(
           direction: Direction.se,
           left: 160,
           right: 140,
+          layer: Layer.front,
         ),
         Furniture(
           name: 'dining_chair_modern',
@@ -2254,6 +2262,7 @@ Room diningroom = Room(
           height: 35,
           left: 160,
           right: 140,
+          layer: Layer.front,
         ),
         Furniture(
           name: 'dining_chair_mahogany',
@@ -2261,6 +2270,7 @@ Room diningroom = Room(
           direction: Direction.se,
           left: 160,
           right: 140,
+          layer: Layer.front,
         )
       ],
       setting: const SlotSetting(
